@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderShippedNotification extends Notification
+class NewMessageNotification extends Notification
 {
     use Queueable;
 
@@ -34,9 +35,9 @@ class OrderShippedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -49,7 +50,7 @@ class OrderShippedNotification extends Notification
         return [
             'date' => now(),
             'author' => fake()->name(),
-            'body' => 'Your order has been shipped. Click <a href="#">here</a> to view order details.',
+            'body' => 'A new message has arrived to your inbox. Click <a href="#">here</a> to view the message.',
         ];
     }
 }
